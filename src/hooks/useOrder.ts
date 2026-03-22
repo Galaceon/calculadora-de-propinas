@@ -15,11 +15,10 @@ export default function useOrder() {
             const newItem : OrderItem = {...item, quantity: 1}
             setOrder([...order, newItem])
         }
-
-
     }
 
     return {
+        order,
         addItem
     }
 }
