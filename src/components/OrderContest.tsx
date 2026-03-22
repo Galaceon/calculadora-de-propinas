@@ -1,11 +1,12 @@
 import { formatCurrency } from "../helpers"
-import type { OrderItem } from "../types"
+import type { MenuItem, OrderItem } from "../types"
 
 type OrderContestProps = {
-    order: OrderItem[]
+    order: OrderItem[],
+    removeItem: (id: MenuItem['id']) => void
 }
 
-export default function OrderContest({order} : OrderContestProps) {
+export default function OrderContest({order, removeItem} : OrderContestProps) {
   return (
     <div>
         <h2 className='font-bold text-4xl'>Consumo</h2>
@@ -21,7 +22,7 @@ export default function OrderContest({order} : OrderContestProps) {
                             <p className="font-bold">Cantidad: {item.quantity} - {formatCurrency(item.price * item.quantity)}</p>
                         </div>
 
-                        <button className="bg-red-600 h-8 w-8 rounded-full text-white font-black cursor-pointer">x</button>
+                        <button onClick={() => removeItem(item.id)} className="bg-red-600 h-8 w-8 rounded-full text-white font-black cursor-pointer">x</button>
                     </div>
                 ))  
             )}
