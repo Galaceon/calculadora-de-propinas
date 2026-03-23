@@ -3,12 +3,14 @@ import type { OrderItem } from "../types"
 import { formatCurrency } from "../helpers"
 
 type OrderTotalsProps = {
-  order: OrderItem[]
-  tip: number
+  order: OrderItem[],
+  tip: number,
+  placeOrder: () => void
+
 }
 
 
-export default function OrderTotals({order, tip} : OrderTotalsProps) {
+export default function OrderTotals({order, tip, placeOrder} : OrderTotalsProps) {
 
   const subtotalAmount = useMemo( () => order.reduce( ( total, item ) => total + ( item.quantity * item.price ), 0 ), [order] )
   const tipAmount = useMemo( () => subtotalAmount * tip, [tip, order] )
@@ -25,7 +27,7 @@ export default function OrderTotals({order, tip} : OrderTotalsProps) {
         <p>Total a pagar: <span className="font-bold">{formatCurrency(totalAmount)}</span></p>
       </div>
 
-      <button></button>
+      <button onClick={placeOrder} disabled={totalAmount === 0} className="w-full bg-black p-3 uppercase text-white font-bold mt-10 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer">Guardar Orden</button>
     </>
   )
 }
